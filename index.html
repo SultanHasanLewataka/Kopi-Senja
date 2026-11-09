@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <!-- Wajib untuk tampilan HP: tanpa ini halaman akan terlihat kecil -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kopi Senja – Kedai Kopi di Jakarta Selatan</title>
+  <meta name="description" content="Kopi Senja: kopi susu gula aren, kopi manual brew, dan camilan. Buka setiap hari 08.00–22.00.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       1. WARNA & FONT — ganti di sini, seluruh halaman ikut berubah
+       ========================================================= */
+    :root {
+      --bg: #f3f5f9;          /* latar halaman */
+      --ink: #1d2340;         /* teks utama */
+      --muted: #5b6283;       /* teks pendukung */
+      --brand: #2b3470;       /* warna utama (header, hero) */
+      --accent: #f0932b;      /* warna tombol / sorotan */
+      --accent-ink: #2a1500;  /* teks di atas tombol */
+      --card: #ffffff;
+      --font-head: "Bricolage Grotesque", system-ui, sans-serif;
+      --font-body: "Figtree", system-ui, sans-serif;
+    }
+
+    /* =========================================================
+       2. RESET & DASAR
+       ========================================================= */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+    /* "container" = membatasi lebar konten supaya tidak melebar di layar besar */
+    .container { width: min(1080px, 100% - 2.5rem); margin-inline: auto; }
+
+    h1, h2, h3 { font-family: var(--font-head); line-height: 1.15; }
+    h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: .6rem; }
+
+    .btn {
+      display: inline-block;
+      padding: .85rem 1.5rem;
+      background: var(--accent);
+      color: var(--accent-ink);
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 999px;
+      transition: transform .15s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.5); }
+
+    section { padding: 4rem 0; }
+
+    /* =========================================================
+       3. HEADER / NAVIGASI (flexbox)
+       ========================================================= */
+    header { background: var(--brand); color: #fff; }
+    .nav {
+      display: flex;                 /* susun anak secara horizontal */
+      justify-content: space-between;/* logo kiri, menu kanan */
+      align-items: center;
+      padding: 1rem 0;
+    }
+    .logo { font-family: var(--font-head); font-weight: 800; font-size: 1.3rem; text-decoration: none; }
+    .nav ul { display: flex; gap: 1.5rem; list-style: none; }
+    .nav ul a { text-decoration: none; opacity: .85; }
+    .nav ul a:hover { opacity: 1; }
+
+    /* =========================================================
+       4. HERO (bagian paling atas)
+       ========================================================= */
+    .hero { background: var(--brand); color: #fff; padding: 3rem 0 5rem; }
+    .hero .container { display: grid; gap: 2.5rem; align-items: center; }
+    .hero h1 { font-size: clamp(2.2rem, 7vw, 3.8rem); font-weight: 800; margin-bottom: 1rem; }
+    .hero p { max-width: 46ch; opacity: .9; margin-bottom: 1.8rem; }
+    .hero .actions { display: flex; gap: .8rem; flex-wrap: wrap; }
+
+    /* Pengganti foto: lingkaran "matahari senja". Ganti dengan <img> milik klien */
+    .sun {
+      width: min(280px, 70vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      margin-inline: auto;
+      background: radial-gradient(circle at 35% 35%, #ffd08a, var(--accent) 60%, #c4650a);
+      box-shadow: 0 0 0 18px rgba(240,147,43,.15), 0 0 0 40px rgba(240,147,43,.07);
+    }
+
+    /* =========================================================
+       5. MENU (grid responsif)
+       ========================================================= */
+    .menu-grid {
+      display: grid;
+      gap: 1.2rem;
+      margin-top: 2rem;
+      /* otomatis: 1 kolom di HP, 2-3 kolom di layar lebih lebar */
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .item {
+      background: var(--card);
+      padding: 1.4rem;
+      border-radius: 14px;
+      border-left: 5px solid var(--accent);
+    }
+    .item h3 { font-size: 1.15rem; margin-bottom: .3rem; }
+    .item p { color: var(--muted); font-size: .95rem; }
+    .price { margin-top: .8rem; font-weight: 600; color: var(--brand); }
+
+    /* =========================================================
+       6. TENTANG & INFO
+       ========================================================= */
+    .about { background: #e6e9f3; }
+    .about .container { display: grid; gap: 2rem; }
+    .about p { color: var(--muted); max-width: 60ch; }
+    .info dt { font-weight: 600; margin-top: 1rem; }
+    .info dd { color: var(--muted); }
+
+    /* =========================================================
+       7. CTA + FOOTER
+       ========================================================= */
+    .cta { background: var(--brand); color: #fff; text-align: center; }
+    .cta p { opacity: .9; margin: 0 auto 1.5rem; max-width: 46ch; }
+    footer { text-align: center; padding: 1.5rem 0; color: var(--muted); font-size: .9rem; }
+
+    /* =========================================================
+       8. MEDIA QUERY — aturan khusus layar lebar (min. 760px)
+       Pendekatan "mobile first": gaya dasar untuk HP, lalu diperluas.
+       ========================================================= */
+    @media (min-width: 760px) {
+      .hero .container { grid-template-columns: 1.3fr 1fr; }
+      .about .container { grid-template-columns: 1.4fr 1fr; }
+    }
+
+    /* Di HP, sembunyikan menu agar header tidak sesak */
+    @media (max-width: 600px) {
+      .nav ul { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .btn { transition: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container nav">
+      <a class="logo" href="#">Kopi Senja</a>
+      <ul>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#tentang">Tentang</a></li>
+        <li><a href="#kontak">Kontak</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <div class="hero">
+      <div class="container">
+        <div>
+          <h1>Kopi enak untuk menutup hari.</h1>
+          <p>Kopi susu gula aren, manual brew, dan camilan hangat. Mampir sepulang kerja, duduk sebentar, pulang lebih ringan.</p>
+          <div class="actions">
+            <!-- GANTI 6281234567890 dengan nomor WhatsApp klien (awali 62, tanpa +/0) -->
+            <a class="btn" href="https://wa.me/6281234567890?text=Halo%20Kopi%20Senja,%20saya%20mau%20pesan">Pesan lewat WhatsApp</a>
+            <a class="btn btn-ghost" href="#menu">Lihat menu</a>
+          </div>
+        </div>
+        <div class="sun" role="img" aria-label="Ilustrasi matahari senja"></div>
+      </div>
+    </div>
+
+    <!-- MENU: salin blok <article class="item"> untuk menambah menu -->
+    <section id="menu">
+      <div class="container">
+        <h2>Menu andalan</h2>
+        <p style="color:var(--muted)">Semua minuman bisa dipesan panas atau dingin.</p>
+
+        <div class="menu-grid">
+          <article class="item">
+            <h3>Kopi Susu Gula Aren</h3>
+            <p>Espresso, susu segar, dan gula aren asli.</p>
+            <div class="price">Rp22.000</div>
+          </article>
+          <article class="item">
+            <h3>V60 Manual Brew</h3>
+            <p>Biji pilihan minggu ini, diseduh saat dipesan.</p>
+            <div class="price">Rp28.000</div>
+          </article>
+          <article class="item">
+            <h3>Matcha Latte</h3>
+            <p>Untuk yang sedang tidak ingin kopi.</p>
+            <div class="price">Rp25.000</div>
+          </article>
+          <article class="item">
+            <h3>Roti Bakar Cokelat Keju</h3>
+            <p>Tebal, hangat, dan lumer.</p>
+            <div class="price">Rp18.000</div>
+          </article>
+          <article class="item">
+            <h3>Pisang Goreng Madu</h3>
+            <p>Renyah di luar, manis di dalam.</p>
+            <div class="price">Rp15.000</div>
+          </article>
+          <article class="item">
+            <h3>Es Teh Lemon</h3>
+            <p>Segar, cocok untuk cuaca panas.</p>
+            <div class="price">Rp14.000</div>
+          </article>
+          <article class="item">
+            <h3>Americano</h3>
+            <p>Dengan cita rasa khas expreso asli nusantara</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TENTANG & INFO -->
+    <section id="tentang" class="about">
+      <div class="container">
+        <div>
+          <h2>Cerita kami</h2>
+          <p>Kopi Senja dimulai dari gerobak kecil di tahun 2021. Sekarang kami punya kedai dengan meja-meja untuk bekerja, mengobrol, atau sekadar menunggu hujan reda. Biji kopi kami datang langsung dari petani di Jawa Barat dan Sumatra.</p>
+        </div>
+        <dl class="info">
+          <dt>Jam buka</dt>
+          <dd>Setiap hari, 08.00–22.00</dd>
+          <dt>Alamat</dt>
+          <dd>Jl. Contoh Raya No. 12, Jakarta Selatan</dd>
+          <dt>Fasilitas</dt>
+          <dd>Wi-Fi, colokan listrik, area outdoor</dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- AJAKAN BERTINDAK -->
+    <section id="kontak" class="cta">
+      <div class="container">
+        <h2>Mau pesan untuk acara kantor?</h2>
+        <p>Kami melayani pesanan untuk rapat, arisan, dan acara kecil. Kirim jumlah orang dan tanggalnya, kami balas hari yang sama.</p>
+        <a class="btn" href="https://wa.me/6285138352302?text=Halo%20Kopi%20Senja,%20saya%20mau%20tanya%20pesanan%20acara">Chat WhatsApp</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 Kopi Senja. Dibuat oleh [namamu].</div>
+  </footer>
+
+</body>
+</html>
